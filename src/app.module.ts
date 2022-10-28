@@ -7,6 +7,7 @@ import {TypeOrmModule} from '@nestjs/typeorm';
 import { User } from './users/entities/user.entity';
 import { PostsModule } from './posts/posts.module';
 import { Post } from './posts/entities/post.entity';
+import { AuthModule } from './auth/auth.module';
 @Module({
   imports: [
     UsersModule,
@@ -27,6 +28,7 @@ import { Post } from './posts/entities/post.entity';
       inject: [ConfigService],
     }),
     PostsModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
