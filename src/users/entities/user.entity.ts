@@ -1,14 +1,9 @@
+import { AbstractSoftDeleteEntity } from 'helper/dto/abstract-soft-delete.entity';
 import { Post } from 'src/posts/entities/post.entity';
 import { Column, Entity, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 
 @Entity('users')
-export class User {
-    @PrimaryGeneratedColumn({
-        type: 'bigint',
-        name: 'id',
-      })
-      id: number;
-    
+export class User extends AbstractSoftDeleteEntity {
       @Column({
         nullable: false,
         default: '',
