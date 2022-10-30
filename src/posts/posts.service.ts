@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/users/entities/user.entity';
 import { Repository } from 'typeorm';
@@ -29,8 +29,13 @@ export class PostsService {
     return `This action returns a #${id} post`;
   }
 
-  update(id: number, updatePostDto: UpdatePostDto) {
-    return `This action updates a #${id} post`;
+  update(updatePostDto: UpdatePostDto) {
+    const { id } = updatePostDto
+    const post = this.repository.findOne({where: {id}})
+    if(!post) {
+      throw new HttpException('User already exist!', HttpStatus.NOT_FOUND);
+    }
+    return this.repository.save(updatePostDto)
   }
 
   remove(id: number) {

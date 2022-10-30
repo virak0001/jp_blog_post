@@ -9,6 +9,6 @@ export class CreatePostDto {
     @IsNotEmpty()
     @IsString()
     readonly content: string;
-
+    
     user: User
 }
