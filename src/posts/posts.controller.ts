@@ -13,21 +13,16 @@ export class PostsController {
   create(@Body() createPostDto: CreatePostDto,@Request() req) {
     return this.postsService.create(createPostDto, req.user);
   }
+
+  @Get(':id')
+  findOne(@Param('id') id: string) {
+    return this.postsService.findOne(id);
+  }
  
   @Get()
   findAll(@Request() req) {
     return this.postsService.findAll(req.user);
   }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.postsService.findOne(+id);
-  }
-
-  // @Patch(':id')
-  // update(@Param('id') id: string, @Body() updatePostDto: UpdatePostDto) {
-  //   return this.postsService.update(+id, updatePostDto);
-  // }
 
   @Put()
   update(@Body() updatePostDto: UpdatePostDto) {

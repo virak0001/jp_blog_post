@@ -19,14 +19,14 @@ export class PostsService {
 
   findAll(user: User) {
     const userId = user.id
-    const myPosts = this.repository.findOne({
+    const myPosts = this.repository.find({
       where: {userId}
     })
     return this.repository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} post`;
+  findOne(id: string) {
+    return this.repository.findOneBy({id});
   }
 
   update(updatePostDto: UpdatePostDto) {
