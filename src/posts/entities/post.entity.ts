@@ -16,6 +16,11 @@ export class Post extends AbstractSoftDeleteEntity {
       })
       content: string;
 
+      @Column({
+        nullable: false,
+      })
+      userId: string;
+
       @ManyToOne(() => User, (user) => user.posts)
       user: User
   

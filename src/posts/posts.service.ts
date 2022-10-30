@@ -15,11 +15,14 @@ export class PostsService {
   create(createPostDto: CreatePostDto, user: User) {
     const payload = { ...createPostDto, user }
     return this.repository.save(payload)
-    return 'This action adds a new post';
   }
 
-  findAll() {
-    return `This action returns all posts`;
+  findAll(user: User) {
+    const userId = user.id
+    const myPosts = this.repository.findOne({
+      where: {userId}
+    })
+    return this.repository.find();
   }
 
   findOne(id: number) {
