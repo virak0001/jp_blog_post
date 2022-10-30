@@ -33,12 +33,16 @@ export class PostsService {
     const { id } = updatePostDto
     const post = this.repository.findOne({where: {id}})
     if(!post) {
-      throw new HttpException('User already exist!', HttpStatus.NOT_FOUND);
+      throw new HttpException('Post not found!', HttpStatus.NOT_FOUND);
     }
     return this.repository.save(updatePostDto)
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} post`;
+  remove(id: string) {
+    const post = this.repository.findOne({where: {id}})
+    if(!post) {
+      throw new HttpException('Post not found!', HttpStatus.NOT_FOUND);
+    }
+    return this.repository.delete(id)
   }
 }
