@@ -8,41 +8,40 @@ import { Post } from './entities/post.entity';
 
 @Injectable()
 export class PostsService {
-
   @InjectRepository(Post)
   private readonly repository: Repository<Post>;
 
   create(createPostDto: CreatePostDto, user: User) {
-    const payload = { ...createPostDto, user }
-    return this.repository.save(payload)
+    const payload = { ...createPostDto, user };
+    return this.repository.save(payload);
   }
 
   findAll(user: User) {
-    const userId = user.id
+    const userId = user.id;
     const myPosts = this.repository.find({
-      where: {userId}
-    })
+      where: { userId },
+    });
     return this.repository.find();
   }
 
   findOne(id: string) {
-    return this.repository.findOneBy({id});
+    return this.repository.findOneBy({ id });
   }
 
   update(updatePostDto: UpdatePostDto) {
-    const { id } = updatePostDto
-    const post = this.repository.findOne({where: {id}})
-    if(!post) {
+    const { id } = updatePostDto;
+    const post = this.repository.findOne({ where: { id } });
+    if (!post) {
       throw new HttpException('Post not found!', HttpStatus.NOT_FOUND);
     }
-    return this.repository.save(updatePostDto)
+    return this.repository.save(updatePostDto);
   }
 
   remove(id: string) {
-    const post = this.repository.findOne({where: {id}})
-    if(!post) {
+    const post = this.repository.findOne({ where: { id } });
+    if (!post) {
       throw new HttpException('Post not found!', HttpStatus.NOT_FOUND);
     }
-    return this.repository.delete(id)
+    return this.repository.delete(id);
   }
 }
